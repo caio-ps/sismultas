@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich">
+
+<h:head>
+	<title>Sistema de Multas</title>
+</h:head>
+
+<h:body bgcolor="#ffffff">
+	<h:graphicImage value="/banner.jpg" width="650px" height="200px"/>
+	<br />
+	<h:form id="formMenu" style="width: 650px;">
+		<rich:toolbar>
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputText value="Cadastros" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuItem submitMode="ajax" label="Usuário"
+					action="/pages/usuario.jsf" />
+				<rich:menuItem submitMode="ajax" label="Veículo"
+					action="/pages/veiculo.jsf" />
+				<rich:menuItem submitMode="ajax"
+					label="Código de Trânsito Brasileiro (CTB)"
+					action="/pages/ctb.jsf" />
+			</rich:dropDownMenu>
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputText value="Consultas" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuItem submitMode="ajax" label="Infrações"
+					action="/pages/consulta.jsf" />
+			</rich:dropDownMenu>
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputText value="Relatórios" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuGroup label="Infrações">
+					<rich:menuItem submitMode="ajax" label="Por veículo"
+						action="/pages/relatorioVeiculo.jsf" />
+					<rich:menuItem submitMode="ajax" label="Por fiscal de trânsito"
+						action="/pages/relatorioFiscal.jsf" />
+				</rich:menuGroup>
+			</rich:dropDownMenu>
+		</rich:toolbar>
+		</h:form>
+		<h:form id="formDetalhe" style="width: 650px;">
+		<rich:panel>
+			<h:panelGrid columns="1">
+				<h:outputLabel value="Digite o número de identificação do fiscal para emissão do relatório:" />
+				<h:inputText value="#{relatorioMB.idFiscal}" size="20" required="true" requiredMessage="Campo obrigatório"/>				
+			</h:panelGrid>			
+			<rich:messages layout="list" />
+			<br />
+			<h:commandButton value="Emitir relatório" action="#{relatorioMB.emitePorFiscal()}" />
+		</rich:panel>
+	</h:form>
+</h:body>
+</html>

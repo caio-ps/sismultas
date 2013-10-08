@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich">
+
+<h:head>
+	<title>Sistema de Multas - Login</title>
+</h:head>
+
+<h:body bgcolor="#ffffff">
+	<h:graphicImage value="/banner.jpg" width="650px" height="200px"/>
+	<br />
+	<h:form id="formLogin" style="width: 650px;">
+		<rich:panel header="Login">
+			<h:outputLabel value="Entre com usuario e senha" />
+			<br />
+			<h:inputText value="#{loginMB.usuario}" size="20" />
+			<br />
+			<h:inputSecret value="#{loginMB.senha}" size="20" />
+			<br />
+			<rich:messages layout="list" />				
+			<br />
+			<h:commandButton value="Entrar" action="#{loginMB.login()}" />
+		</rich:panel>
+	</h:form>
+
+</h:body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<h:head>
+	<title>Sistema de Multas</title>
+</h:head>
+
+<h:body bgcolor="#ffffff">
+	<h:graphicImage value="/banner.jpg" width="650px" height="200px"/>
+	<br />
+	<h:form id="formMenu" style="width: 650px;">
+		<rich:toolbar>
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputText value="Cadastros" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuItem submitMode="ajax" label="Usuário"
+					action="/pages/usuario.jsf" />
+				<rich:menuItem submitMode="ajax" label="Veículo"
+					action="/pages/veiculo.jsf" />
+				<rich:menuItem submitMode="ajax"
+					label="Código de Trânsito Brasileiro (CTB)"
+					action="/pages/ctb.jsf" />
+			</rich:dropDownMenu>
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputText value="Consultas" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuItem submitMode="ajax" label="Infrações"
+					action="/pages/consulta.jsf" />
+			</rich:dropDownMenu>
+			<rich:dropDownMenu>
+				<f:facet name="label">
+					<h:panelGroup>
+						<h:outputText value="Relatórios" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:menuGroup label="Infrações">
+					<rich:menuItem submitMode="ajax" label="Por veículo"
+						action="/pages/relatorioVeiculo.jsf" />
+					<rich:menuItem submitMode="ajax" label="Por fiscal de trânsito"
+						action="/pages/relatorioFiscal.jsf" />
+				</rich:menuGroup>
+			</rich:dropDownMenu>
+		</rich:toolbar>
+		</h:form>
+		<h:form id="formDetalhe" style="width: 650px;">
+		<rich:panel>
+			<h:panelGrid columns="4">
+				<h:outputLabel value="Cep local da ocorrência:" />
+				<h:inputText value="#{multaMB.cepLocalOcorrencia}" size="20" />
+				<h:outputLabel value="Data da ocorrência:" />
+				<rich:calendar value="#{multaMB.dataOcorrencia}"
+                        locale="#{multaMB.locale}"
+                        popup="true"
+                        datePattern="dd/MM/yyyy"
+                        />
+				<h:outputLabel value="Código infração CTB:" />
+				<h:inputText value="#{multaMB.codigoInfracaoCtb}" size="20" />
+				<h:outputLabel value="Desdobramento CTB:" />
+				<h:inputText value="#{multaMB.desdobramentoCtb}" size="20" />
+				<h:outputLabel value="ID do fiscal que emitiu a multa:" />
+				<h:inputText value="#{multaMB.idFiscal}" size="20" />
+				<h:outputLabel value="Placa do veículo:" />
+				<h:inputText value="#{multaMB.placaVeiculo}" size="20" />
+			</h:panelGrid>
+			<br />
+			<h:commandButton value="Pesquisar" action="#{multaMB.pesquisa()}" />
+			<br /><br />
+			<rich:dataTable id="infracaoList" var="infracao" value="#{multaMB.infracaoConsultaVOs}" style="width: 625px;"
+				rendered="#{not empty multaMB.infracaoConsultaVOs}" rows="10">
+				<rich:column style="width: 25px;">
+					<h:selectBooleanCheckbox value="#{infracao.selected}" rendered="#{infracao.status eq 'Processamento OK.'}"/>
+				</rich:column>
+				<rich:column >
+					<f:facet name="header">CEP</f:facet>
+					<h:outputText value="#{infracao.cepLocalOcorrencia}" />
+				</rich:column>				
+				<rich:column>
+					<f:facet name="header">Data ocorrência</f:facet>
+					<h:outputText value="#{infracao.dataFormatada}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Cod. CTB</f:facet>
+					<h:outputText value="#{infracao.codigoInfracaoCtb}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Desd.</f:facet>
+					<h:outputText value="#{infracao.desdobramentoCtb}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Fiscal</f:facet>
+					<h:outputText value="#{infracao.idFiscal}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Placa</f:facet>
+					<h:outputText value="#{infracao.placaVeiculo}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Status infração</f:facet>
+					<h:outputText value="#{infracao.status}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Status notificação</f:facet>
+					<h:outputText value="#{infracao.notificacaoVO.status}" />
+				</rich:column>
+				<f:facet name="footer">
+					<h:commandButton value="Download PDF notificação" action="#{multaMB.downloadPDF()}" />
+					<h:commandButton value="Reenviar e-mail notificação" action="#{multaMB.enviaEmail()}" />
+				</f:facet>
+			</rich:dataTable>
+			<rich:dataScroller for="infracaoList" maxPages="2" style="margin-left: 170px;"
+				rendered="#{not empty multaMB.infracaoConsultaVOs}" />
+			<rich:messages layout="list" />			
+		</rich:panel>
+	</h:form>
+</h:body>
+</html>
