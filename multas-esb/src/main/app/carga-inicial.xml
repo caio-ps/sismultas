@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="CE-3.3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd ">
+    <flow name="carga-inicialFlow1" doc:name="carga-inicialFlow1">
+        <http:inbound-endpoint exchange-pattern="request-response" address="http://localhost:8882/CargaInicial" doc:name="HTTP"/>
+        <cxf:jaxws-service serviceClass="br.com.fiap.sismultas.init.CargaInicial" doc:name="SOAP"/>
+        <component class="br.com.fiap.sismultas.init.CargaInicialResponse" doc:name="Java"/>
+        <async doc:name="Async">
+            <cxf:jaxws-client operation="executaCargaInicial" serviceClass="br.com.fiap.sismultas.init.client.CargaInicialBean" doc:name="SOAP"/>
+            <outbound-endpoint exchange-pattern="request-response" address="http://localhost:8080/multas-core/CargaInicial/CargaInicialBean" doc:name="Generic"/>
+            <echo-component doc:name="Echo"/>
+        </async>
+    </flow>
+</mule>

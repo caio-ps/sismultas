@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:file="http://www.mulesoft.org/schema/mule/file" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:cxf="http://www.mulesoft.org/schema/mule/cxf" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:spring="http://www.springframework.org/schema/beans" version="CE-3.3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/cxf http://www.mulesoft.org/schema/mule/cxf/current/mule-cxf.xsd 
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd 
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd 
+http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/file/current/mule-file.xsd ">
+    <flow name="emite-multaFlow1" doc:name="emite-multaFlow1">
+        <http:inbound-endpoint exchange-pattern="request-response" address="http://localhost:8081/EmiteMulta" doc:name="Receiver"/>
+        <cxf:jaxws-service serviceClass="br.com.fiap.sismultas.ws.EmiteMulta" doc:name="SOAPInterface" enableMuleSoapHeaders="false"/>
+        <component class="br.com.fiap.sismultas.ws.EmiteMultaResponse" doc:name="POJO"/>
+        <async doc:name="Async">
+            <cxf:jaxws-client operation="processaDadosMulta" serviceClass="br.com.fiap.sismultas.mule.ws.MultasWSBean" enableMuleSoapHeaders="true" doc:name="SOAP"/>
+            <outbound-endpoint exchange-pattern="request-response" address="http://localhost:8080/multas-core/SisMultasWS/MultasWSBean" doc:name="Generic"/>
+            <mulexml:xslt-transformer maxIdleTransformers="2" maxActiveTransformers="5"  doc:name="XSLT" xsl-file="src/main/resources/emiteNotificacao.xsl">
+            </mulexml:xslt-transformer>
+            <outbound-endpoint exchange-pattern="request-response" address="http://localhost:8080/multas-core/SisMultasWS/MultasWSBean" doc:name="Generic"/>
+            <mulexml:xslt-transformer maxIdleTransformers="2" maxActiveTransformers="5"  doc:name="XSLT" xsl-file="src/main/resources/geraArquivoNotificacao.xsl">
+            </mulexml:xslt-transformer>
+            <outbound-endpoint exchange-pattern="request-response" address="http://localhost:8080/multas-core/SisMultasWS/MultasWSBean" doc:name="Generic"/>
+            <mulexml:xslt-transformer maxIdleTransformers="2" maxActiveTransformers="5"  doc:name="XSLT" xsl-file="src/main/resources/enviaEmailNotificacao.xsl">
+            </mulexml:xslt-transformer>
+            <outbound-endpoint address="http://localhost:8080/multas-core/SisMultasWS/MultasWSBean" doc:name="Generic"/>
+        </async>
+        <catch-exception-strategy doc:name="Catch Exception Strategy">
+            <echo-component doc:name="Echo"/>
+        </catch-exception-strategy>
+    </flow>
+</mule>
