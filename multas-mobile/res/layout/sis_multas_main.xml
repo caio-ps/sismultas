@@ -1,0 +1,119 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SisMultasMain" >
+
+    <TextView
+        android:id="@+id/lblIdFical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/id_fiscal"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/txtIdFiscal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/btnEmiteMulta"
+        android:layout_toRightOf="@+id/lblIdFical"
+        android:ems="10"
+        android:inputType="number" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/lblCep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtIdFiscal"
+        android:layout_marginRight="17dp"
+        android:layout_marginTop="34dp"
+        android:layout_toLeftOf="@+id/btnEmiteMulta"
+        android:text="@string/cep"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/txtCep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/lblCep"
+        android:layout_alignRight="@+id/txtPlaca"
+        android:layout_toRightOf="@+id/lblCep"
+        android:ems="10"
+        android:inputType="number"
+        android:maxLength="8" />
+
+    <TextView
+        android:id="@+id/lblCodCtb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/lblCep"
+        android:layout_below="@+id/lblCep"
+        android:layout_marginTop="14dp"
+        android:text="@string/cod_ctb"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/txtCodCtb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/lblCodCtb"
+        android:layout_alignRight="@+id/txtCep"
+        android:layout_toRightOf="@+id/lblCodCtb"
+        android:ems="10"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/txtDesd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txtCodCtb"
+        android:layout_alignRight="@+id/txtCodCtb"
+        android:layout_alignTop="@+id/lblDesd"
+        android:ems="10"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/lblDesd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lblCodCtb"
+        android:layout_toLeftOf="@+id/txtDesd"
+        android:text="@string/desdobramento"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/btnEmiteMulta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="17dp"
+        android:text="@string/enviar_multa" />
+
+    <EditText
+        android:id="@+id/txtPlaca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnEmiteMulta"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="19dp"
+        android:ems="10"
+        android:inputType="textCapCharacters"
+        android:maxLength="7" />
+
+    <TextView
+        android:id="@+id/lblPlaca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/txtPlaca"
+        android:layout_centerHorizontal="true"
+        android:text="@string/placa"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</RelativeLayout>

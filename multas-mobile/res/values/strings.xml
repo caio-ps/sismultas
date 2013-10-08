@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SisMultas - Mobile</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="placa">Placa:</string>
+    <string name="enviar_multa">Enviar multa</string>
+    <string name="id_fiscal">Nº id agente:</string>
+    <string name="cep">CEP:</string>
+    <string name="cod_ctb">Código CTB:</string>
+    <string name="desdobramento">Desdobramento:</string>
+
+</resources>
