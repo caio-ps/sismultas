@@ -7,7 +7,7 @@ Este é o TCC que apresentei na FIAP para concluir meu MBA em Desenvolvimento de
 onde um guarda de trânsito conseguisse aplicar uma multa a um motorista infrator em poucos segundos,
 através de uma interface mobile.
 
-O sistema então, processaria e enviaria a multa por e-mail ao infrator em poucas horas. Basicamente você
+O sistema então processaria e enviaria a multa por e-mail ao infrator em poucas horas. Basicamente você
 tomaria uma multa, e ao chegar em casa já teria o boleto em seu e-mail para pagamento.
 
 A arquitetura foi toda feita seguindo o modelo de Arquitetura Orientada a Serviços (SOA), e as implementações
